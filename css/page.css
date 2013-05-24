@@ -4,3 +4,12 @@
 .grid300 { width: 300px; }
 .left { float: left; }
 .right { float: right; }
+
+
+.column-data { overflow: hidden; margin-left: 20px;  }
+
+.column-data ul.inline > li, .column-data ol.inline > li {
+    display: inline;
+}
+
+ul.inline > li.br:after, ol.inline > li.br:after { content:"\A"; white-space:pre; }

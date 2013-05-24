@@ -1,0 +1,132 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <meta charset="UTF-8">
+        <title>HMVC generator</title>
+        <link href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="css/page.css" rel="stylesheet" type="text/css" />
+        <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/demo_2_app.js"></script>
+    </head>
+    <body>
+        <div ng-app="project" class="center container">
+            <h2>HMVC generator</h2>
+            <div ng-view></div>
+
+            <!-- CACHE FILE: list.html -->
+            <script type="text/ng-template" id="list.html">
+                <input type="text" class="control-group" ng-model="module" placeholder="Module Name" value="message">
+                <button ng-click="query()" class="btn btn-primary">query Module</button>
+                <button ng-click="addColumn()" class="btn btn-primary">add Column</button>
+
+                <div ng-repeat="project in projects" class="control-group column-data">
+                    <form id="form_{{project._id.$oid}}"><ul class="inline">
+                        <li>
+                            <input type="text" title="說明" value="" class="input-small" name="comments" placeholder="說明" ng-model="project.comments" required>
+                        </li>
+                        <li>
+                            <input type="text" title="欄位" value="" maxlength="64" class="input-medium" name="name" placeholder="欄位" ng-model="project.name" required>
+                        </li>
+                        <li>
+                            <select name="type" ng-model="project.type" required class="input-small">
+                                <option value="VARCHAR">VARCHAR</option>
+                                <option value="TINYINT">TINYINT</option>
+                                <option value="TEXT">TEXT</option>
+                                <option value="DATE">DATE</option>
+                                <option value="SMALLINT">SMALLINT</option>
+                                <option value="MEDIUMINT">MEDIUMINT</option>
+                                <option value="INT">INT</option>
+                                <option value="BIGINT">BIGINT</option>
+                                <option value="FLOAT">FLOAT</option>
+                                <option value="DOUBLE">DOUBLE</option>
+                                <option value="DECIMAL">DECIMAL</option>
+                                <option value="DATETIME">DATETIME</option>
+                                <option value="TIMESTAMP">TIMESTAMP</option>
+                                <option value="TIME">TIME</option>
+                                <option value="YEAR">YEAR</option>
+                                <option value="CHAR">CHAR</option>
+                                <option value="TINYBLOB">TINYBLOB</option>
+                                <option value="TINYTEXT">TINYTEXT</option>
+                                <option value="BLOB">BLOB</option>
+                                <option value="MEDIUMBLOB">MEDIUMBLOB</option>
+                                <option value="MEDIUMTEXT">MEDIUMTEXT</option>
+                                <option value="LONGBLOB">LONGBLOB</option>
+                                <option value="LONGTEXT">LONGTEXT</option>
+                                <option value="ENUM">ENUM</option>
+                                <option value="SET">SET</option>
+                                <option value="BIT">BIT</option>
+                                <option value="BOOL">BOOL</option>
+                                <option value="BINARY">BINARY</option>
+                                <option value="VARBINARY">VARBINARY</option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" title="長度/集合" value="" size="8" name="length" placeholder="長度/集合" ng-model="project.length" class="input-mini">
+                        </li>
+                        <li>
+                            <select name="key" class="input-small" ng-model="project.key">
+                                <option value="primary">主鍵</option>
+                                <option value="index">索引鍵</option>
+                                <option value="unique">唯一鍵</option>
+                                <option value="none">無</option>
+                            </select>
+                        </li>
+                        <li class="br">
+                            <input type="text" value="" class="input-small" name="default" title="預設值"  placeholder="預設值" ng-model="project.default">
+                        </li>
+                        <li>
+                            <select name="attribute" ng-model="project.attribute" class="input-small">
+                                <option value="">屬性</option>
+                                <option value="BINARY">BINARY</option>
+                                <option value="UNSIGNED">UNSIGNED</option>
+                                <option value="UNSIGNED ZEROFILL">UNSIGNED ZEROFILL</option>
+                                <option value="ON UPDATE CURRENT_TIMESTAMP">ON UPDATE CURRENT_TIMESTAMP</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="null" ng-model="project.null" class="input-small">
+                                <option value="NOT NULL">not null</option>
+                                <option value="">null</option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="checkbox" title="自增數" value="AUTO_INCREMENT" name="extra" ng-model="project.extra">自增數
+                        </li>
+                        <li class="br">
+                            <input type="checkbox" title="全文檢索" value="1" name="fulltext" ng-model="project.fulltext">全文檢索
+                        </li>
+                        <li>
+                            <select name="input" class="input-medium" ng-model="project.input">
+                                <option value="input">一般</option>
+                                <option value="hide">隱藏</option>
+                                <option value="url">網址</option>
+                                <option value="date">日期</option>
+                                <option value="file">檔案</option>
+                                <option value="email">Email</option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="checkbox" title="必填" value="1" name="require" ng-model="project.check.require">必填
+                            <input type="checkbox" title="Email 檢查" value="1" name="email" ng-model="project.check.email">Email 檢查
+                        </li>
+                        <li>
+                            <input type="hidden" name="_id" ng-model="project._id.$oid">
+
+                            <button ng-click="save(project)" ng-disabled="isClean()"
+                                class="btn btn-primary">Save</button>
+
+                            <button ng-click="destroy(project)"
+                                ng-show="project._id" class="btn btn-danger">Delete</button>
+                        </li>
+                    </ul></form>
+                </div>
+            </script>
+        </div>
+    </body>
+</html>

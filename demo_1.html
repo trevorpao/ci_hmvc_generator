@@ -12,7 +12,7 @@
         <script src="js/angular.min.js"></script>
         <script src="js/angular-resource.min.js"></script>
         <script src="js/jquery.min.js"></script>
-        <script src="js/app.js"></script>
+        <script src="js/demo_1_app.js"></script>
     </head>
     <body>
         <div ng-app="project" class="center grid800">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="control-group" ng-class="{error: myForm.name.$invalid}">
                         <label>欄位</label>
-                        <input type="text" title="欄位" value="" maxlength="64" size="10" name="name" placeholder="欄位" ng-model="project." required>
+                        <input type="text" title="欄位" value="" maxlength="64" size="10" name="name" placeholder="欄位" ng-model="project.name" required>
                         <span ng-show="myForm.name.$error.required" class="help-inline">
                             Required</span>
                     </div>
