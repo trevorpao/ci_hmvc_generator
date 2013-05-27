@@ -34,7 +34,7 @@ function ListCtrl($scope, Project, ModuleData) {
     };
 
     $scope.addColumn = function() {
-        Project.save({}, function(project) {
+        Project.save({_id:undefined, module: ModuleData.name}, function(project) {
             $scope.projects = Project.query({module: ModuleData.name});
         });
     };
@@ -67,7 +67,7 @@ angular.module('mongolab', ['ngResource']).
     factory('ModuleData', function() {
         var ModuleData = {};
 
-        ModuleData.name = 'message';
+        ModuleData.name = 'dictionary';
 
         ModuleData.switch = function (newName){
             ModuleData.name = newName;
@@ -76,8 +76,8 @@ angular.module('mongolab', ['ngResource']).
         return ModuleData;
     }).
     factory('Project', function($resource, ModuleData) {
-        var Project = $resource('https://api.mongolab.com/api/1/databases/:module/collections/dictionary/:id',
-                {apiKey: 'INhDmBsNG5W7IetIGeGud30HckRoL9Pv', s: '{"name":1}' },
+        var Project = $resource('https://api.mongolab.com/api/1/databases/message/collections/:module/:id',
+                {apiKey: 'INhDmBsNG5W7IetIGeGud30HckRoL9Pv', module:'@module', s: '{"name":1}' },
                 {
                     update: { method: 'PUT' }
                 }
@@ -89,7 +89,7 @@ angular.module('mongolab', ['ngResource']).
         };
 
         Project.prototype.destroy = function(cb) {
-            return Project.remove({id: this._id.$oid}, cb);
+            return Project.remove({id: this._id.$oid, module: ModuleData.name}, cb);
         };
 
         return Project;
